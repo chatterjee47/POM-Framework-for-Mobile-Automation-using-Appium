@@ -1,0 +1,63 @@
+package ObjectRepository_Pages;
+
+
+import org.apache.poi.xssf.usermodel.XSSFRow;
+import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.ui.WebDriverWait;
+import org.testng.Assert;
+
+public class LoginPage extends Keywords {
+
+    //*********Constructor*********
+    public LoginPage(WebDriver driver, WebDriverWait wait) {
+        super(driver, wait);
+    }
+
+    //*********Web Elements*********
+    static String SignUpTab = "//android.widget.Button[@text='SIGN_UP']";
+    static String EnterName = "//android.widget.EditText[@text='Name']";
+    static String FamilyName = "//android.widget.EditText[@text='Family Name']";
+    
+   
+//    public void verifyLoginUserName (String expectedUserNameMessage) {
+//        Assert.assertEquals(readText(By.xpath(errorMessageUsernameXpath)), expectedUserNameMessage);
+//    }
+
+
+    //Go to LoginPage
+    public static void goToLoginPage (){
+        click(By.xpath(SignUpTab));
+    }
+    
+    public static void EnterName (XSSFRow row){
+    	input(By.xpath(EnterName),row.getCell(1).toString());
+       
+    }
+    
+    public static void FamilyName (XSSFRow row){
+    	input(By.xpath(FamilyName), row.getCell(2).toString());
+    }
+    
+    //Verifying 
+    
+    //Go to LoginPage
+    public static void DisplayGuru99 (){
+    	WebElement ImageFile = driver.findElement(By.xpath("//android.widget.TextView[@text='Guru99']"));
+
+        Boolean ImagePresent = (Boolean) ((JavascriptExecutor)driver).executeScript("return arguments[0].complete && typeof arguments[0].naturalWidth != \"undefined\" && arguments[0].naturalWidth > 0", ImageFile);
+        if (!ImagePresent)
+        {
+             System.out.println("Guru99 not displayed.");
+        }
+        else
+        {
+            System.out.println("Guru99 displayed.");
+        }
+    }
+    
+   
+}

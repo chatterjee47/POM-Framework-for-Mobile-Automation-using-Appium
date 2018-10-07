@@ -1,0 +1,96 @@
+package ObjectRepository_Pages;
+
+
+import org.apache.poi.xssf.usermodel.XSSFRow;
+import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.ui.WebDriverWait;
+import org.testng.Assert;
+
+public class LoginPage extends Keywords {
+
+    //*********Constructor*********
+    public LoginPage(WebDriver driver, WebDriverWait wait) {
+        super(driver, wait);
+    }
+
+    //*********Web Elements*********
+    static String signInButtonClass = "btnSignIn";
+    
+    //*********Web Elements*********
+    @FindBy(xpath="//android.widget.Button[@text='SIGN_UP']")
+    String SignUpTab;
+	
+	
+	@FindBy(xpath="//android.widget.EditText[@text='Name']")
+	String EnterName;
+	
+	
+	@FindBy(xpath="//android.widget.EditText[@text='Family Name']")
+	String FamilyName;
+	
+    
+    
+    @FindBy(id="email")
+    String usenameId;
+   
+    @FindBy(id="password")
+    String passwordId;
+    
+    @FindBy(id="loginButton")
+    String loginButtonId;
+    
+    @FindBy(xpath="//*[@id='loginForm']/div[1]/div/div")
+    String errorMessageUsernameXpath;
+    
+    @FindBy(xpath="//*[@id='loginForm']/div[2]/div/div")
+    String errorMessagePasswordXpath;
+
+    
+    
+    //*********Page Methods*********
+    public void loginToN11 (XSSFRow row) throws InterruptedException{
+        
+    	click(By.xpath(SignUpTab));
+    	Thread.sleep(5000);
+    	input(By.xpath(EnterName),row.getCell(1).toString());
+    	input(By.xpath(FamilyName), row.getCell(2).toString());
+        
+    }
+
+    public void verifyLoginUserName (String expectedUserNameMessage) {
+        Assert.assertEquals(readText(By.xpath(errorMessageUsernameXpath)), expectedUserNameMessage);
+    }
+
+    public void verifyLoginPassword (String expectedPasswordMessage) {
+        Assert.assertEquals(readText(By.xpath(errorMessagePasswordXpath)), expectedPasswordMessage);
+    }
+
+    //Go to LoginPage
+    public static void goToLoginPage (){
+        click(By.className(signInButtonClass));
+    }
+    
+    
+    //Verifying 
+    
+    //Go to LoginPage
+    public static void DisplayGuru99 (){
+    	WebElement ImageFile = driver.findElement(By.xpath("//android.widget.TextView[@text='Guru99']"));
+
+        Boolean ImagePresent = (Boolean) ((JavascriptExecutor)driver).executeScript("return arguments[0].complete && typeof arguments[0].naturalWidth != \"undefined\" && arguments[0].naturalWidth > 0", ImageFile);
+        if (!ImagePresent)
+        {
+             System.out.println("Guru99 not displayed.");
+        }
+        else
+        {
+            System.out.println("Guru99 displayed.");
+        }
+    }
+    
+   
+}

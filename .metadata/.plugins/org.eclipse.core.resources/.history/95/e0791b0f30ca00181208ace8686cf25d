@@ -1,0 +1,42 @@
+package tests;
+
+
+import org.testng.annotations.BeforeTest;
+import org.testng.annotations.Listeners;
+import org.testng.annotations.Test;
+import ObjectRepository_Pages.LoginPage;
+import SetupAppium.BaseClass;
+import utils.excelutils.ExcelUtil;
+import utils.extentreports.ExtentTestManager;
+import utils.listeners.TestListener;
+
+
+@Listeners({ TestListener.class })
+public class RegistrationPage extends BaseClass {
+
+    @BeforeTest
+    public void setupTestData () throws Exception {
+        //Set Test Data Excel and Sheet
+        System.out.println("************Setup Test Level Data**********");
+        ExcelUtil.setExcelFileSheet("LoginData");
+    }
+
+    @Test (priority = 0, description="Invalid Login Scenario with wrong username and password.")
+    public void ValidatingRegistrationPage () throws Exception {
+       
+        ExtentTestManager.getTest().setDescription("Invalid Login Scenario with wrong username and password.");
+
+        LoginPage loginPage = new LoginPage(driver,wait);
+        Thread.sleep(5000);
+        LoginPage.DisplayGuru99();
+        
+        
+        
+//        loginPage.loginToN11(ExcelUtil.getRowData(1));
+//        ExcelUtil.setRowNumber(1);
+//        ExcelUtil.setColumnNumber(5);
+//        Thread.sleep(500);
+//        loginPage.verifyLoginPassword(ExcelUtil.getCellData(1,4));
+//  
+    }
+}
